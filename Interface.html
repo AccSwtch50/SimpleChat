@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+	<title>SimpleChat</title>
+	<script type="text/javascript" src="Interface.js"></script>
+	<link rel="stylesheet" type="text/css" href="Interface.css">
+	<link rel="stylesheet" type="text/css" href="icon_theme_tweaks.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="main">
+	<div class="sidebar">
+		<button class="button sidebar-button new-chat"><div class="icon-simplechat new-chat-icon"></div><span class="button-text">New Chat</span></button><br />
+		<p class="conv-list-title">Conversations:</p>
+		<div class="conversation-list">
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+		</div>
+	</div>
+	<div class="chat-content">
+		<div class="conversation-options">
+			<button onclick="model_dropdown_clicked()" class="button model-dropdown">
+				<div class="icon-simplechat model-icon"></div>
+				<span class="button-text">Model Name</span>
+				<div class="icon-simplechat dropdown-icon"></div>
+			</button>
+			<div class="model-list">
+			
+			</div>
+		</div>
+		<div class="conversation-content">
+			<div class="message message-user">
+				<div class="message-heading message-user"><span class="role-heading">User</span><div class="icon-simplechat user-icon role-icon"></div></div>
+				<div class="message-content message-user"><span>What's your favorite food?</span></div>
+			</div>
+			<div class="message message-assistant">
+				<div class="message-heading message-assistant"><div class="icon-simplechat assistant-icon model-icon role-icon"></div><span class="role-heading">AI</span></div>
+				<div class="message-content message-assistant"><span>My favorite food is pizza.</span></div>
+			</div>
+		</div>
+		<div class="conversation-interact">
+			<div class="input-area">
+				<div class="textbox">
+					<textarea class="prompt-input"></textarea>
+					<button class="prompt-button"><div class="icon-simplechat prompt-button-icon"></div></button>
+				</div>
+				<div class="input-additions">
+					<button class="button mcp-dropdown"><img class="icon-simplechat mcp-icon" src="assets/mcp.svg" loading="lazy" /><span class="button-text">MCP Servers</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

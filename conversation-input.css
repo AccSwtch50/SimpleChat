@@ -1,0 +1,70 @@
+.input-area {
+	margin: 0 10% 0 10%;
+	width: 80%;
+	background-color: hsl(0, 0%, 85%);
+	height: 5em;
+	align-items: flex-start;
+	flex-direction: column;
+	display: flex;
+	padding: 0.8em;
+	border-radius: 1em;
+}
+
+.textbox {
+	display: flex;
+	width: 100%;
+}
+
+.prompt-input {
+	width: calc(100% - 3em);
+	background-color: rgba(0,0,0,0);
+	font-family: sans-serif;
+	border: none;
+	resize: none;
+	box-shadow: none;
+	outline: none;
+}
+
+.prompt-button {
+	display: flex;
+	height: 3em;
+	width: 3em;
+	background-color: hsl(0, 0%, 0%);
+	color:hsl(0,0%,100%);
+	border-radius: 100%;
+	border: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.prompt-button:hover {
+	background-color: hsl(0, 0%, 20%);
+}
+
+.prompt-button:active {
+	background-color: hsl(0, 0%, 40%);
+}
+
+.input-additions {
+	width: 100%;
+	margin-top: 0.2em;
+}
+
+.mcp-dropdown {
+	padding: 0.4em !important;
+	border-radius: 0.7em !important;
+	font-size: 1.2em;
+	background-color: hsl(0, 0%, 75%) !important;
+}
+
+.mcp-dropdown:hover {
+	background-color: hsl(0, 0%, 60%) !important;
+}
+
+.mcp-dropdown:active {
+	background-color: hsl(0, 0%, 50%) !important;
+}
+
+.icon-simplechat.mcp-icon {
+	height: 1.2em;
+}

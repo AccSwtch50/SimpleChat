@@ -1,0 +1,66 @@
+@import url("sidebar.css");
+@import url("conversation-box.css");
+
+body {
+	margin: 0em;
+}
+
+.main {
+	display: flex;
+	width: 100%;
+	height: 100dvh;
+	flex-direction: row;
+}
+
+.sidebar {
+	display: flex;
+	width: 17em;
+	flex-shrink: 0;
+	border-color: hsl(0, 0%, 70%);
+	border-width: 0.1em;
+	border-right-style: solid;
+	align-items: center;
+	flex-direction: column;
+	padding: 0.50em;
+	background-color: hsl(0, 0%, 95%);
+}
+
+.chat-content {
+	flex-grow: 1;
+	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+}
+
+.button {
+	display: flex;
+	background-color: hsl(0, 0%, 85%);
+	border-color: hsl(0, 0%, 60%);
+	border-radius: 0.2em;
+	border: none;
+	text-align: left;
+	margin-bottom: 0.35em;
+	flex-shrink: 0;
+	user-select: none;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+.button-text {
+	margin: 0 0.2em 0 0.3em;
+	font-family: sans-serif;
+}
+
+.button:hover {
+	background-color: hsl(0, 0%, 75%);
+}
+
+.button:active {
+	background-color: hsl(0, 0%, 50%);
+}
+
+@media screen and (max-width: 1000px) {
+	.sidebar {
+		display: none;
+	}
+}

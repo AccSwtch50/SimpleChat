@@ -1,0 +1,86 @@
+@import url("conversation-input.css");
+
+.conversation-options {
+	flex-shrink: 0;
+}
+
+.conversation-content {
+	flex-grow: 1;
+	--usable-width: 75%;
+	padding-left: calc((100% - var(--usable-width)) / 2);
+	padding-right: calc((100% - var(--usable-width)) / 2);
+	width: var(--usable-width);
+	margin-bottom: 0.5em;
+}
+
+.conversation-interact {
+	flex-shrink: 0;
+}
+
+.model-dropdown {
+	font-size: 1.2em;
+}
+
+.icon-simplechat {
+	display: flex;
+	/*margin-right: 0.2em;*/
+}
+
+.icon-simplechat.dropdown-icon {
+	margin-left: 0.1em;
+}
+
+.message {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.message-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center !important;
+	width: fit-content
+}
+
+.message-content {
+	width: fit-content;
+	padding: 0.7em;
+	font-family: sans-serif;
+	font-size: 0.9em;
+	border-radius: 1em;
+	background-color: hsl(0, 0%, 85%);
+}
+
+.message-content.message-user {
+	border-top-right-radius: 0.3em;
+}
+
+.message-content.message-assistant {
+	border-top-left-radius: 0.3em;
+}
+
+.message-user {
+	text-align: right;
+	align-items: flex-end;
+}
+
+.message-assistant {
+	text-align: left;
+	align-items: flex-start;
+}
+
+.icon-simplechat.role-icon {
+	border: solid;
+	border-width: 0.1em;
+	border-radius: 100%;
+	height: 2em;
+	width: 2em;
+	align-items: center;
+	justify-content: center;
+}
+
+.role-heading {
+	font-family: sans-serif;
+	margin: 0 0.5em 0 0.5em;
+}

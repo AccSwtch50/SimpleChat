@@ -1,0 +1,74 @@
+.fontawesome.conversation-icon, .lucide.conversation-icon {
+	height: 1em;
+	padding: 0.3em 0.2em 0.3em 0;
+}
+
+.breeze.conversation-icon {
+	font-size: calc(4em / 3);
+}
+
+.fontawesome.new-chat-icon, .lucide.new-chat-icon {
+	height: 0.8em;
+}
+
+.breeze.new-chat-icon {
+	font-size: 1.2em;
+}
+
+.fontawesome.model-icon {
+	height: 0.7em;
+	margin: 0 -0.1em 0 -0.1em;
+}
+
+.breeze.model-icon {
+	font-size: 1.3em;
+	margin-right: -0.1em;
+}
+
+.lucide.dropdown-icon {
+	margin-bottom: -0.28em
+}
+
+.lucide.prompt-button-icon, .fontawesome.prompt-button-icon {
+	height: 1.3em;
+	margin-left: -0.1em;
+}
+
+.fontawesome.prompt-button-icon {
+	margin-left: -0.15em;
+}
+
+.breeze.prompt-button-icon {
+	font-size: 1.5em;
+	margin-left: -0.08em;
+	margin-top: -0.05em;
+}
+
+.breeze.user-icon {
+	font-size: 2em;
+}
+
+.lucide.user-icon {
+	height: 2em;
+	width: unset;
+}
+
+.fontawesome.user-icon {
+	height: 1.6em;
+	width: 1.63em;
+	padding: 0.2em;
+}
+
+.breeze.assistant-icon {
+	font-size: 1.8em;
+	margin: 0;
+}
+
+.fontawesome.assistant-icon {
+	height: 1.8em;
+}
+
+.lucide.assistant-icon {
+	height: 1.5m;
+	width: unset;
+}
