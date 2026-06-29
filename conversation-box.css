@@ -45,6 +45,10 @@
 	border-radius: 0.5em;
 }
 
+.show-model-list {
+	display: flex !important;
+}
+
 .button.model {
 	padding: 0.3em;
 	font-size: 0.9em;
