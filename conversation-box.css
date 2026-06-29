@@ -10,7 +10,6 @@
 	padding-left: calc((100% - var(--usable-width)) / 2);
 	padding-right: calc((100% - var(--usable-width)) / 2);
 	width: var(--usable-width);
-	margin-bottom: 0.5em;
 }
 
 .conversation-interact {
@@ -18,16 +17,46 @@
 }
 
 .model-dropdown {
-	font-size: 1.2em;
+	position: relative;
+	display: inline-block;
 }
 
-.icon-simplechat {
-	display: flex;
-	/*margin-right: 0.2em;*/
+.model-dropdown.button {
+	flex-direction: row;
+	font-size: 1.2em;
 }
 
 .icon-simplechat.dropdown-icon {
 	margin-left: 0.1em;
+}
+
+.model-list {
+	display: none !important;
+	position: absolute;
+	gap: 0.2em;
+	right: 0;
+	margin: 0;
+	margin-top: 0.2em;
+	background-color: hsl(0, 0%, 80%);
+	padding: 0.4em;
+	width: fit-content;
+	max-height: 14em;
+	z-index: 1;
+	border-radius: 0.5em;
+}
+
+.button.model {
+	padding: 0.3em;
+	font-size: 0.9em;
+	background-color: hsla(0, 0%, 0%, 0%);
+}
+
+.button.model:hover {
+	background-color: hsla(0, 0%, 0%, 10%);
+}
+
+.button.model:active {
+	background-color: hsla(0, 0%, 0%, 20%);
 }
 
 .message {

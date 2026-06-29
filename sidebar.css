@@ -16,16 +16,11 @@
 	flex-grow: 1;
 	width: 100%;
 	height: 100%;
-	overflow-y: auto;
-	min-height: 0;
-	display: flex;
-	flex-direction: column;
 	gap: 0.2em;
 }
 
 .conv-list-title {
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
+	margin: 0;
 	font-family: sans-serif;
 	font-size: 0.8em;
 	color: hsl(0, 0%, 50%);

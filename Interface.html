@@ -10,9 +10,9 @@
 <body>
 <div class="main">
 	<div class="sidebar">
-		<button class="button sidebar-button new-chat"><div class="icon-simplechat new-chat-icon"></div><span class="button-text">New Chat</span></button><br />
+		<button class="button sidebar-button new-chat"><div class="icon-simplechat new-chat-icon"></div><span class="button-text">New Chat</span></button>
 		<p class="conv-list-title">Conversations:</p>
-		<div class="conversation-list">
+		<div class="list conversation-list">
 			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
 			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
 			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
@@ -36,13 +36,34 @@
 	</div>
 	<div class="chat-content">
 		<div class="conversation-options">
-			<button onclick="model_dropdown_clicked()" class="button model-dropdown">
-				<div class="icon-simplechat model-icon"></div>
-				<span class="button-text">Model Name</span>
-				<div class="icon-simplechat dropdown-icon"></div>
-			</button>
-			<div class="model-list">
-			
+			<div class="model-dropdown">
+				<button onclick="model_dropdown_clicked()" class="button model-dropdown">
+					<div class="icon-simplechat model-icon"></div>
+					<span class="button-text">Model Name</span>
+					<div class="icon-simplechat dropdown-icon"></div>
+				</button>
+				<div class="list model-list">
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+				</div>
 			</div>
 		</div>
 		<div class="conversation-content">

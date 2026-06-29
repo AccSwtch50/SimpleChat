@@ -12,6 +12,11 @@ body {
 	flex-direction: row;
 }
 
+.icon-simplechat {
+	display: flex;
+	/*margin-right: 0.2em;*/
+}
+
 .sidebar {
 	display: flex;
 	width: 17em;
@@ -23,6 +28,7 @@ body {
 	flex-direction: column;
 	padding: 0.50em;
 	background-color: hsl(0, 0%, 95%);
+	gap: 0.5em;
 }
 
 .chat-content {
@@ -30,6 +36,14 @@ body {
 	padding: 0.5em;
 	display: flex;
 	flex-direction: column;
+	gap: 0.5em;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	min-height: 0;
 }
 
 .button {
@@ -39,7 +53,6 @@ body {
 	border-radius: 0.2em;
 	border: none;
 	text-align: left;
-	margin-bottom: 0.35em;
 	flex-shrink: 0;
 	user-select: none;
 	align-items: center;
