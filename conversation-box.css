@@ -10,6 +10,9 @@
 	padding-left: calc((100% - var(--usable-width)) / 2);
 	padding-right: calc((100% - var(--usable-width)) / 2);
 	width: var(--usable-width);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
 }
 
 .conversation-interact {
@@ -45,7 +48,7 @@
 	border-radius: 0.5em;
 }
 
-.show-model-list {
+.show-dropdown.model-list {
 	display: flex !important;
 }
 

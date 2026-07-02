@@ -1,4 +1,4 @@
-const icon_theme = "breeze";
+const icon_theme = "lucide";
 
 if (icon_theme == "lucide") {
 	globalThis.icon_type = "svg"
