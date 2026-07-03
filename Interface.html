@@ -43,26 +43,26 @@
 					<div class="icon-simplechat dropdown-icon"></div>
 				</button>
 				<div class="list dropdown-content model-list" id="model-dropdown-list">
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
 				</div>
 			</div>
 		</div>
@@ -83,8 +83,15 @@
 					<button class="prompt-button"><div class="icon-simplechat prompt-button-icon"></div></button>
 				</div>
 				<div class="input-additions">
-					<div class="list dropdown-list mcp-list"></div>
-					<button class="button dropdown-button mcp-dropdown"><img class="icon-simplechat mcp-icon" src="assets/mcp.svg" loading="lazy" /><span class="button-text">MCP Servers</span></button>
+					<div class="mcp-dropdown">
+						<div class="list dropdown-content mcp-list" id="mcp-list">
+							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;exa&quot;)">Exa</button>
+							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;ddg&quot;)">DuckDuckGo</button>
+							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;tavily&quot;)">Tavily Search</button>
+							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;parallel-search&quot;)">Parallel Search</button>
+						</div>
+						<button class="button dropdown-button mcp-dropdown" onclick="mcp_tools_clicked()"><img class="icon-simplechat mcp-icon" src="assets/mcp.svg" loading="lazy" /><span class="button-text">MCP Servers</span></button>
+					</div>
 				</div>
 			</div>
 		</div>

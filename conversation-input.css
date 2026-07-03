@@ -50,19 +50,40 @@
 	margin-top: 0.2em;
 }
 
-.mcp-dropdown {
+button.mcp-dropdown {
 	padding: 0.4em !important;
 	border-radius: 0.7em !important;
 	font-size: 1.2em;
 	background-color: hsl(0, 0%, 75%) !important;
 }
 
-.mcp-dropdown:hover {
+button.mcp-dropdown:hover {
 	background-color: hsl(0, 0%, 60%) !important;
 }
 
-.mcp-dropdown:active {
+button.mcp-dropdown:active {
 	background-color: hsl(0, 0%, 50%) !important;
+}
+
+div.mcp-dropdown {
+	position: relative;
+	width: fit-content;
+}
+
+.mcp-list {
+	display: none !important;
+	position: absolute;
+	z-index: 1;
+	bottom: calc(100% + 0.2em);
+	right: 0;
+	background-color: hsl(0, 0%, 70%);
+	padding: 0.4em;
+	border-radius: 1em;
+	gap: 0.1em;
+}
+
+.button.mcp-tool {
+	border-radius: 0.5em;
 }
 
 .icon-simplechat.mcp-icon {

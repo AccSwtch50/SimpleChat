@@ -48,22 +48,10 @@
 	border-radius: 0.5em;
 }
 
-.show-dropdown.model-list {
-	display: flex !important;
-}
-
 .button.model {
 	padding: 0.3em;
 	font-size: 0.9em;
-	background-color: hsla(0, 0%, 0%, 0%);
-}
 
-.button.model:hover {
-	background-color: hsla(0, 0%, 0%, 10%);
-}
-
-.button.model:active {
-	background-color: hsla(0, 0%, 0%, 20%);
 }
 
 .message {
