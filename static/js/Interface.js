@@ -6,7 +6,7 @@ const external_scripts = [
 ];
 
 external_scripts.forEach(script => {
-	script_template.src = script;
+	script_template.src = FLASK_STATIC_JS_URL + script;
 	document.querySelector("head").append(script_template.cloneNode(true));
 });
 

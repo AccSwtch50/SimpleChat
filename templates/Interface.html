@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title>SimpleChat</title>
-	<script type="text/javascript" src="Interface.js"></script>
-	<link rel="stylesheet" type="text/css" href="Interface.css">
-	<link rel="stylesheet" type="text/css" href="icon_theme_tweaks.css">
+	<script>const FLASK_STATIC_JS_URL = "{{ url_for('static', filename='js/') }}";</script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/Interface.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Interface.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon_theme_tweaks.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -13,25 +14,9 @@
 		<button class="button sidebar-button new-chat"><div class="icon-simplechat new-chat-icon"></div><span class="button-text">New Chat</span></button>
 		<p class="conv-list-title">Conversations:</p>
 		<div class="list conversation-list">
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
-			<button class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">New Chat</span></button>
+			{% for conversation in conversations%}
+			<button onclick="open_conversation(&quot;{{ conversation.id }}&quot;)" class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">{{ conversation.name }}</span></button>
+			{% endfor %}
 		</div>
 	</div>
 	<div class="chat-content">
@@ -90,7 +75,7 @@
 							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;tavily&quot;)">Tavily Search</button>
 							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;parallel-search&quot;)">Parallel Search</button>
 						</div>
-						<button class="button dropdown-button mcp-dropdown" onclick="mcp_tools_clicked()"><img class="icon-simplechat mcp-icon" src="assets/mcp.svg" loading="lazy" /><span class="button-text">MCP Servers</span></button>
+						<button class="button dropdown-button mcp-dropdown" onclick="mcp_tools_clicked()"><img class="icon-simplechat mcp-icon" src="{{ url_for('static', filename='assets/mcp.svg') }}" loading="lazy" /><span class="button-text">MCP Servers</span></button>
 					</div>
 				</div>
 			</div>
