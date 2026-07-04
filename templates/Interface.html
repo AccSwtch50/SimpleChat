@@ -3,7 +3,7 @@
 <head>
 	<title>SimpleChat</title>
 	<script>const FLASK_STATIC_JS_URL = "{{ url_for('static', filename='js/') }}";</script>
-	<script type="text/javascript" src="{{ url_for('static', filename='js/Interface.js') }}"></script>
+	<script type="module" src="{{ url_for('static', filename='js/Interface.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Interface.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon_theme_tweaks.css') }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,7 @@
 			{% for conversation in conversations%}
 			<button onclick="open_conversation(&quot;{{ conversation.id }}&quot;)" class="button sidebar-button conversation"><div class="icon-simplechat conversation-icon"></div><span class="button-text">{{ conversation.name }}</span></button>
 			{% endfor %}
+			<button onclick="load_more_conversations()" class="button sidebar-button conversation auxilary-conversation-button more-chats">Load More</button>
 		</div>
 	</div>
 	<div class="chat-content">
@@ -28,26 +29,9 @@
 					<div class="icon-simplechat dropdown-icon"></div>
 				</button>
 				<div class="list dropdown-content model-list" id="model-dropdown-list">
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
-					<button class="button transparent-button model" onclick="model_select(&quot;my-model&quot;)">My model</button>
+					{% for model in models%}
+					<button class="button transparent-button model" onclick="model_select(&quot;{{ model.name }}&quot;)">{{ model.friendly_name }}</button>
+					{% endfor %}
 				</div>
 			</div>
 		</div>

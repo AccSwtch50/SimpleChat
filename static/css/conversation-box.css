@@ -36,6 +36,7 @@
 .model-list {
 	display: none !important;
 	position: absolute;
+	top: 100%;
 	gap: 0.2em;
 	right: 0;
 	margin: 0;

@@ -1,35 +1,18 @@
+const icon_theme_switcher = await import(FLASK_STATIC_JS_URL + "icon_theme_switcher.js");
+globalThis.icon_theme = icon_theme_switcher.get_theme_object("fontawesome");
+icon_theme_switcher.setup_icons(icon_theme);
+
+const load_conversations = await import(FLASK_STATIC_JS_URL + "load_conversations.js");
+window.load_more_conversations = load_conversations.load_more_conversations;
+
 const script_template = document.createElement("script");
 script_template.type = "text/javascript";
 
 const external_scripts = [
-	"icon_theme_switcher.js"
+	"dropdown.js"
 ];
 
 external_scripts.forEach(script => {
 	script_template.src = FLASK_STATIC_JS_URL + script;
 	document.querySelector("head").append(script_template.cloneNode(true));
 });
-
-function model_dropdown_clicked() {
-	document.getElementById("model-dropdown-list").classList.toggle("show-dropdown");
-}
-
-function mcp_tools_clicked() {
-	document.getElementById("mcp-list").classList.toggle("show-dropdown");
-}
-
-function close_dropdowns_if_unfocused() {
-	const dropdowns = document.getElementsByClassName("dropdown-content");
-	for (const dropdown of dropdowns) {
-		if (!dropdown.classList.contains("show-dropdown")) {
-			continue;
-		}
-		dropdown.classList.remove("show-dropdown");
-	}
-}
-
-window.onclick = function(event) {
-	if (!event.target.closest('.dropdown-button')) {
-		close_dropdowns_if_unfocused();
-	}
-}

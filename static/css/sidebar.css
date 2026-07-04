@@ -35,3 +35,7 @@
 	font-size: 0.9em;
 	margin-bottom: 0 !important;
 }
+
+.more-chats {
+	justify-content: center;
+}
