@@ -32,6 +32,7 @@
 					{% for model in models%}
 					<button class="button transparent-button model" onclick="model_select(&quot;{{ model.name }}&quot;)">{{ model.friendly_name }}</button>
 					{% endfor %}
+					<button onclick="load_more_models()" class="button transparent-button model model-load-trigger auxilary">Load More</button>
 				</div>
 			</div>
 		</div>

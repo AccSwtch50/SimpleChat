@@ -76,7 +76,7 @@ export function get_theme_object(theme_name) {
 
 function copy_icon_classes(parent_element, child_element) {
 	parent_element.classList.forEach(cls => {
-		if (cls != "icon-simplechat") {
+		if (cls !== "icon-simplechat") {
 			child_element.classList.add(cls);
 		}
 	});
@@ -110,7 +110,7 @@ export function initialize_icons(icon_theme) {
 export function setup_icons(icon_theme) {
 	process_resources(icon_theme)
 	if (document.readyState == "loading") {
-		document.addEventListener('DOMContentLoaded', initialize_icons(icon_theme));
+		document.addEventListener('DOMContentLoaded', () => initialize_icons(icon_theme));
 	} else {
 		initialize_icons(icon_theme);
 	}

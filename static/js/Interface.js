@@ -5,6 +5,8 @@ icon_theme_switcher.setup_icons(icon_theme);
 const load_conversations = await import(FLASK_STATIC_JS_URL + "load_conversations.js");
 window.load_more_conversations = load_conversations.load_more_conversations;
 
+const load_models = await import(FLASK_STATIC_JS_URL + "load_models.js");
+
 const script_template = document.createElement("script");
 script_template.type = "text/javascript";
 
