@@ -80,6 +80,7 @@ div.mcp-dropdown {
 	padding: 0.4em;
 	border-radius: 1em;
 	gap: 0.1em;
+	max-height: 10em;
 }
 
 .button.mcp-tool {

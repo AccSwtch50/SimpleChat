@@ -55,10 +55,10 @@
 				<div class="input-additions">
 					<div class="mcp-dropdown">
 						<div class="list dropdown-content mcp-list" id="mcp-list">
-							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;exa&quot;)">Exa</button>
-							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;ddg&quot;)">DuckDuckGo</button>
-							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;tavily&quot;)">Tavily Search</button>
-							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;parallel-search&quot;)">Parallel Search</button>
+							{% for mcp_server in mcp_servers %}
+							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;{{ mcp_server.name }}&quot;)">{{ mcp_server.friendly_name }}</button>
+							{% endfor %}
+							<button class="button transparent-button mcp-tool load-trigger auxilary" onclick="load_more_mcp_servers()">Load More</button>
 						</div>
 						<button class="button dropdown-button mcp-dropdown" onclick="mcp_tools_clicked()"><img class="icon-simplechat mcp-icon" src="{{ url_for('static', filename='assets/mcp.svg') }}" loading="lazy" /><span class="button-text">MCP Servers</span></button>
 					</div>

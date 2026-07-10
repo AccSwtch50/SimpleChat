@@ -13,9 +13,14 @@ models = []
 for index in range(50):
     models.append({"name": f"model_{index + 1}", "friendly_name": f"Model {index + 1}"})
 
+mcp_servers = []
+
+for index in range(50):
+    mcp_servers.append({"name": f"mcp_{index + 1}", "friendly_name": f"MCP {index + 1}"})
+
 @app.route("/")
 def main():
-    return render_template("Interface.html", conversations=conversations[:20], models=models[:20])
+    return render_template("Interface.html", conversations=conversations[:20], models=models[:20], mcp_servers=mcp_servers[:20])
 
 @app.route("/backend-api/conversations")
 def get_conversations():
@@ -38,6 +43,17 @@ def get_models():
     model_endstop = min((model_offset + model_fetched), len(models))
 
     return jsonify(models[(model_offset):model_endstop])
+
+@app.route("/backend-api/mcp-servers")
+def get_mcp_servers():
+    mcp_server_offset = 20
+    mcp_server_fetched = 20
+
+    mcp_server_offset = int(request.headers.get("Item-Offset"))
+    mcp_server_fetched = int(request.headers.get('Max-Item-Fetched'))
+    mcp_server_endstop = min((mcp_server_offset + mcp_server_fetched), len(mcp_servers))
+
+    return jsonify(mcp_servers[(mcp_server_offset):mcp_server_endstop])
 
 if __name__ == "__main__":
     app.run(debug=True)
