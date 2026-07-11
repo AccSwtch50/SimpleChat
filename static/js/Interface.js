@@ -8,6 +8,8 @@ window.load_more_conversations = load_conversations.load_more_conversations;
 const load_models = await import(FLASK_STATIC_JS_URL + "load_models.js");
 const load_mcp_servers = await import(FLASK_STATIC_JS_URL + "load_mcp_servers.js");
 
+const conversation_js = await import(FLASK_STATIC_JS_URL + "conversation.js");
+
 const script_template = document.createElement("script");
 script_template.type = "text/javascript";
 

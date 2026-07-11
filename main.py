@@ -55,5 +55,20 @@ def get_mcp_servers():
 
     return jsonify(mcp_servers[(mcp_server_offset):mcp_server_endstop])
 
+@app.route("/backend-api/send_message", methods=["POST"])
+def send_message():
+    data = request.get_json()
+
+    if not data or "prompt" not in data:
+        return jsonify({"status": "error", "message": "No message received"}), 400
+
+    user_prompt = data["prompt"];
+
+    response = {
+        "response": user_prompt
+    }
+
+    return jsonify(response);
+
 if __name__ == "__main__":
     app.run(debug=True)
