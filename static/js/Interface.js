@@ -1,5 +1,5 @@
 const icon_theme_switcher = await import(FLASK_STATIC_JS_URL + "icon_theme_switcher.js");
-globalThis.icon_theme = icon_theme_switcher.get_theme_object("fontawesome");
+globalThis.icon_theme = icon_theme_switcher.get_theme_object("lucide");
 icon_theme_switcher.setup_icons(icon_theme);
 
 const load_conversations = await import(FLASK_STATIC_JS_URL + "load_conversations.js");
@@ -10,7 +10,8 @@ const load_mcp_servers = await import(FLASK_STATIC_JS_URL + "load_mcp_servers.js
 
 const conversation_js = await import(FLASK_STATIC_JS_URL + "conversation.js");
 
-const message_bubbles = await import(FLASK_STATIC_JS_URL + "message_bubbles.js");
+const load_conversation = await import(FLASK_STATIC_JS_URL + "load_conversation.js");
+await load_conversation.open_conversation()
 
 /*const ai_role_string = message_bubbles.get_message_object("assistant_role");
 const human_role_string = message_bubbles.get_message_object("user_role");

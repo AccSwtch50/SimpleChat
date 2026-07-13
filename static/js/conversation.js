@@ -1,8 +1,28 @@
 const message_bubbles = await import(FLASK_STATIC_JS_URL + "message_bubbles.js");
 
+if (document.readyState == "loading") {
+    document.addEventListener('DOMContentLoaded', observe_keyboard);
+} else {
+    observe_keyboard();
+}
+
+function observe_keyboard() {
+    const prompt_button = document.querySelector(".prompt-button");
+    const input_textarea = document.querySelector(".prompt-input");
+
+    if (!input_textarea) return;
+
+    input_textarea.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' || event.shiftKey) return;
+        event.preventDefault();
+        if (prompt_button.disabled) return;
+        window.send_prompt();
+    });
+}
+
 window.send_prompt = async function() {
     const input_textarea = document.querySelector(".prompt-input");
-    const prompt_button = document.querySelector(".prompt-button")
+    const prompt_button = document.querySelector(".prompt-button");
     const message_text = input_textarea.value.trim();
 
     if (!message_text) {
@@ -13,7 +33,7 @@ window.send_prompt = async function() {
     prompt_button.disabled = true;
 
     let message_id = self.crypto.randomUUID();
-    const user_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("user_role"), message_text, message_id)
+    const user_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("user"), message_text, message_id)
 
     const temporary_input_value = input_textarea.value;
     input_textarea.value = "";
@@ -41,14 +61,14 @@ async function send_prompt_to_api(message_text, message_id) {
 
     if (!response.ok) throw new Error('Network response error');
 
-    const assistant_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("assistant_role"))
+    const assistant_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("assistant"))
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
 
     while (true) {
-        const {value, done} = await reader.read(assistant_message_bubble);
+        const {value, done} = await reader.read();
 
         if (done && buffer.trim()) handle_stream_failure(assistant_message_bubble);
         if (done) break;
@@ -71,6 +91,7 @@ function process_message_deltas(deltas, message_bubble) {
         if (delta.trim() === "") continue;
         const parsed_delta = JSON.parse(delta);
         message_bubble.setAttribute("message-id", parsed_delta.message_id);
+        console.log(parsed_delta.reasoning_delta);
         message_bubble.querySelector(".message-content").textContent += parsed_delta.message_delta;
     }
 }

@@ -81,6 +81,7 @@
 	border-radius: 1em;
 	background-color: hsl(0, 0%, 85%);
 	white-space: pre-wrap;
+	text-align: left !important;
 }
 
 .message-content.message-user {

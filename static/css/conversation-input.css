@@ -41,7 +41,7 @@
 	background-color: hsl(0, 0%, 20%);
 }
 
-.prompt-button:active {
+.prompt-button:active, .prompt-button:disabled {
 	background-color: hsl(0, 0%, 40%);
 }
 

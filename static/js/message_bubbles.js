@@ -7,7 +7,10 @@ const user_role = "<div class=\"message message-user\"><div class=\"message-head
 const conversation_container = document.querySelector(".conversation-content");
 
 export function get_message_object(role) {
-    const roles = {assistant_role, user_role};
+    const roles = {
+        assistant: assistant_role,
+        user: user_role
+    };
     return roles[role];
 }
 

@@ -4,14 +4,17 @@ import json
 import os
 from flask import Flask, render_template, request, jsonify, Response
 from openai import OpenAI
+from dotenv import load_dotenv
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "sk-PlaceholderAPIKey")
-OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-
-oai_client = OpenAI(
-    api_key=OPENAI_API_KEY,
-    base_url=OPENAI_BASE_URL
-)
+def initialize():
+    load_dotenv()
+    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "sk-PlaceholderAPIKey")
+    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+    global oai_client
+    oai_client = OpenAI(
+        api_key=OPENAI_API_KEY,
+        base_url=OPENAI_BASE_URL
+    )
 
 app = Flask(__name__)
 
@@ -37,14 +40,15 @@ def simplechat_to_openai(conversation):
 
     for message in conversation:
         openai_conversation.append({
-            "role": message["role"].lower(),
+            "role": message["role"],
             "content": message["message"]
         })
     return openai_conversation
 
 def generate_reply_stream(prompt, message_id):
     openai_stream = oai_client.chat.completions.create(
-        model = "gpt-5.6-luna",
+        model = "gemma4:31b-cloud",
+        reasoning_effort = "medium",
         messages = simplechat_to_openai(current_conversation),
         stream = True
     )
@@ -53,21 +57,21 @@ def generate_reply_stream(prompt, message_id):
     message_id = str(uuid.uuid4())
 
     for chunk in openai_stream:
-        try:
-            message_delta = chunk.choices[0].delta.content
-        except:
-            continue
-        if not message_delta:
+        delta = chunk.choices[0].delta
+        message_delta = getattr(delta, "content", "") or ""
+        message_reasoning = getattr(delta, "reasoning", "") or ""
+        if not (message_delta or message_reasoning):
             continue
 
         assistant_full_message += message_delta
         response_data = {
             "message_id": message_id,
-            "message_delta": message_delta
+            "message_delta": message_delta,
+            "reasoning_delta": message_reasoning
         }
         yield json.dumps(response_data) + "\n"
     current_conversation.append({
-        "role": "Assistant",
+        "role": "assistant",
         "message": assistant_full_message,
         "message_id": message_id
     })
@@ -118,12 +122,17 @@ def send_message():
         return jsonify({"status": "error", "message": "No message received"}), 400
 
     current_conversation.append({
-        "role": "User",
+        "role": "user",
         "message": data["prompt"],
         "message_id": data["message_id"]
     })
 
     return Response(generate_reply_stream(data["prompt"], data["message_id"]), mimetype="application/x-ndjson")
 
+@app.route("/backend-api/get-conversation")
+def get_conversation():
+    return jsonify(current_conversation)
+
 if __name__ == "__main__":
+    initialize()
     app.run(debug=True)
