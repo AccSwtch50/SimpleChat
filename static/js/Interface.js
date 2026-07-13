@@ -10,6 +10,14 @@ const load_mcp_servers = await import(FLASK_STATIC_JS_URL + "load_mcp_servers.js
 
 const conversation_js = await import(FLASK_STATIC_JS_URL + "conversation.js");
 
+const message_bubbles = await import(FLASK_STATIC_JS_URL + "message_bubbles.js");
+
+/*const ai_role_string = message_bubbles.get_message_object("assistant_role");
+const human_role_string = message_bubbles.get_message_object("user_role");
+
+message_bubbles.insert_message_bubble(human_role_string, "What's your favorite food?");
+message_bubbles.insert_message_bubble(ai_role_string, "My favorite food is pizza.");*/
+
 const script_template = document.createElement("script");
 script_template.type = "text/javascript";
 

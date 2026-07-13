@@ -13,6 +13,8 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.5em;
+	min-height: 0;
+	overflow-y: auto;
 }
 
 .conversation-interact {
@@ -78,6 +80,7 @@
 	font-size: 0.9em;
 	border-radius: 1em;
 	background-color: hsl(0, 0%, 85%);
+	white-space: pre-wrap;
 }
 
 .message-content.message-user {

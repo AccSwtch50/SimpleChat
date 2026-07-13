@@ -1,5 +1,8 @@
-window.send_prompt = function() {
+const message_bubbles = await import(FLASK_STATIC_JS_URL + "message_bubbles.js");
+
+window.send_prompt = async function() {
     const input_textarea = document.querySelector(".prompt-input");
+    const prompt_button = document.querySelector(".prompt-button")
     const message_text = input_textarea.value.trim();
 
     if (!message_text) {
@@ -7,24 +10,67 @@ window.send_prompt = function() {
         return;
     }
 
+    prompt_button.disabled = true;
+
+    let message_id = self.crypto.randomUUID();
+    const user_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("user_role"), message_text, message_id)
+
+    const temporary_input_value = input_textarea.value;
+    input_textarea.value = "";
+
     try {
-        send_prompt_to_api(message_text);
+        await send_prompt_to_api(message_text, message_id);
     } catch (error) {
         console.error("Failed sending message:", error);
-        alert("Failed to send prompt, check browser console for details.")
+        input_textarea.value = temporary_input_value;
+        user_message_bubble.remove();
+        alert("Failed to send prompt, check browser console for details.");
+    } finally {
+        prompt_button.disabled = false;
     }
 }
 
-function send_prompt_to_api(message_text) {
-    const response = fetch("/backend-api/send_message", {
+async function send_prompt_to_api(message_text, message_id) {
+    const response = await fetch("/backend-api/send_message", {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+        "Content-Type": "application/json",
         },
-        body: JSON.stringify({prompt: message_text})
-    })
-    .then(response_json => response_json.json())
-    .then(response => {
-        console.log(response);
-    })
+        body: JSON.stringify({prompt: message_text, message_id: message_id})
+    });
+
+    if (!response.ok) throw new Error('Network response error');
+
+    const assistant_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("assistant_role"))
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+
+    while (true) {
+        const {value, done} = await reader.read(assistant_message_bubble);
+
+        if (done && buffer.trim()) handle_stream_failure(assistant_message_bubble);
+        if (done) break;
+
+        buffer += decoder.decode(value, {stream: true});
+        const lines = buffer.split("\n");
+        buffer = lines.pop();
+
+        process_message_deltas(lines, assistant_message_bubble);
+    }
+}
+
+function handle_stream_failure(assistant_message_bubble) {
+    if (assistant_message_bubble) assistant_message_bubble.remove();
+    throw new Error("Streaming error");
+}
+
+function process_message_deltas(deltas, message_bubble) {
+    for (const delta of deltas) {
+        if (delta.trim() === "") continue;
+        const parsed_delta = JSON.parse(delta);
+        message_bubble.setAttribute("message-id", parsed_delta.message_id);
+        message_bubble.querySelector(".message-content").textContent += parsed_delta.message_delta;
+    }
 }
