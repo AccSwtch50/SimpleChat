@@ -33,7 +33,8 @@ window.send_prompt = async function() {
     prompt_button.disabled = true;
 
     let message_id = self.crypto.randomUUID();
-    const user_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("user"), message_text, message_id)
+    const user_message_bubble = message_bubbles.insert_message_bubble(message_bubbles.get_message_object("user"), message_id)
+    message_bubbles.insert_message_container("container-message", user_message_bubble).textContent = message_text;
 
     const temporary_input_value = input_textarea.value;
     input_textarea.value = "";
@@ -66,6 +67,10 @@ async function send_prompt_to_api(message_text, message_id) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
+    const stream_state = {
+        last_delta_type: null,
+        message_container: null
+    };
 
     while (true) {
         const {value, done} = await reader.read();
@@ -77,7 +82,7 @@ async function send_prompt_to_api(message_text, message_id) {
         const lines = buffer.split("\n");
         buffer = lines.pop();
 
-        process_message_deltas(lines, assistant_message_bubble);
+        process_message_deltas(lines, assistant_message_bubble, stream_state);
     }
 }
 
@@ -86,12 +91,41 @@ function handle_stream_failure(assistant_message_bubble) {
     throw new Error("Streaming error");
 }
 
-function process_message_deltas(deltas, message_bubble) {
+function process_message_deltas(deltas, message_bubble, stream_state) {
     for (const delta of deltas) {
+
         if (delta.trim() === "") continue;
         const parsed_delta = JSON.parse(delta);
+        const structured_delta = structure_delta(parsed_delta);
+
         message_bubble.setAttribute("message-id", parsed_delta.message_id);
-        console.log(parsed_delta.reasoning_delta);
-        message_bubble.querySelector(".message-content").textContent += parsed_delta.message_delta;
+
+        const delta_type = structured_delta.delta_type;
+        console.log(delta_type + " " + stream_state.last_delta_type);
+        if (delta_type !== stream_state.last_delta_type) stream_state.message_container = message_bubbles.insert_message_container(delta_type, message_bubble);
+
+        stream_state.message_container.textContent += structured_delta.delta_message;
+        stream_state.last_delta_type = delta_type;
     }
+}
+
+function structure_delta(delta, message_bubble) {
+    let delta_type;
+    let delta_message;
+    const message_types = {
+        "container-message": delta.message_delta,
+        "container-reasoning": delta.reasoning_delta
+    }
+
+    for (const message_type in message_types) {
+        if (message_types[message_type] === "") continue;
+        delta_type = message_type;
+        delta_message = message_types[message_type];
+    }
+
+    const structured_delta = {
+        delta_type: delta_type,
+        delta_message: delta_message
+    }
+    return structured_delta;
 }

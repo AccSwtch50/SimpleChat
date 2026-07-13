@@ -14,12 +14,11 @@ export function get_message_object(role) {
     return roles[role];
 }
 
-export function insert_message_bubble(html_string, message="", message_id="0") {
+export function insert_message_bubble(html_string, message_id="0") {
     const parser = new DOMParser();
     const template_base = parser.parseFromString(html_string, 'text/html').querySelector(".message");
     const template = template_base.cloneNode(true);
 
-    template.querySelector(".message-content").textContent = message;
     template.setAttribute("message-id", message_id);
     conversation_container.appendChild(template);
 
@@ -28,6 +27,10 @@ export function insert_message_bubble(html_string, message="", message_id="0") {
     return template;
 }
 
-/*export append_message_bubble(message_id, message="") {
-
-}*/
+export function insert_message_container(type, message_bubble) {
+    const container = document.createElement("div");
+    container.classList.add("content-container");
+    container.classList.add(type);
+    message_bubble.querySelector(".message-content").appendChild(container);
+    return container;
+}
