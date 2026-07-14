@@ -4,6 +4,8 @@ const assistant_role = "<div class=\"message message-assistant\"><div class=\"me
 
 const user_role = "<div class=\"message message-user\"><div class=\"message-heading message-user\"><span class=\"role-heading\">User</span><div class=\"icon-simplechat user-icon role-icon\"></div></div><div class=\"message-content message-user\"></div></div>"
 
+const hide_reasoning_button = "<button class=\"hide-reasoning-button\"><div class=\"icon-simplechat chevron-down\"></div><div class=\"icon-simplechat chevron-up\"></div>Reasoning</button>"
+
 const conversation_container = document.querySelector(".conversation-content");
 
 export function get_message_object(role) {
@@ -28,9 +30,31 @@ export function insert_message_bubble(html_string, message_id="0") {
 }
 
 export function insert_message_container(type, message_bubble) {
+    const message_types = {
+        normal: "container-message",
+        reasoning: "container-reasoning"
+    }
+
+    let hide_button = null;
+
+    if (type === "reasoning") {
+        const parser = new DOMParser();
+        const hide_button_base = parser.parseFromString(hide_reasoning_button, 'text/html').querySelector(".hide-reasoning-button");
+        hide_button = hide_button_base.cloneNode(true);
+    }
+
+    const final_type = message_types[type];
+
     const container = document.createElement("div");
     container.classList.add("content-container");
-    container.classList.add(type);
+    container.classList.add(final_type);
+
+    if (hide_button !== null) container.appendChild(hide_button);
+
+    const text_container = document.createElement("div");
+    text_container.classList.add("content-text");
+
+    container.appendChild(text_container);
     message_bubble.querySelector(".message-content").appendChild(container);
-    return container;
+    return text_container;
 }

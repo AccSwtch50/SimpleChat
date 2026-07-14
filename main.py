@@ -3,15 +3,17 @@ import time
 import json
 import os
 from flask import Flask, render_template, request, jsonify, Response
-from openai import OpenAI
 from dotenv import load_dotenv
+from modules import conversation_manager
+
+stream_manager = None
 
 def initialize():
     load_dotenv()
     OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "sk-PlaceholderAPIKey")
     OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-    global oai_client
-    oai_client = OpenAI(
+    global stream_manager
+    stream_manager = conversation_manager.StreamManager(
         api_key=OPENAI_API_KEY,
         base_url=OPENAI_BASE_URL
     )
@@ -33,49 +35,7 @@ mcp_servers = []
 for index in range(50):
     mcp_servers.append({"name": f"mcp_{index + 1}", "friendly_name": f"MCP {index + 1}"})
 
-current_conversation = []
-
-def simplechat_to_openai(conversation):
-    openai_conversation = []
-
-    for message in conversation:
-        openai_conversation.append({
-            "role": message["role"],
-            "content": message["message"]
-        })
-    return openai_conversation
-
-def generate_reply_stream(prompt, message_id):
-    openai_stream = oai_client.chat.completions.create(
-        model = "gemma4:31b-cloud",
-        reasoning_effort = "medium",
-        messages = simplechat_to_openai(current_conversation),
-        stream = True
-    )
-    assistant_full_message = ""
-
-    message_id = str(uuid.uuid4())
-
-    for chunk in openai_stream:
-        delta = chunk.choices[0].delta
-        message_delta = getattr(delta, "content", "") or ""
-        message_reasoning = getattr(delta, "reasoning", "") or ""
-        if not (message_delta or message_reasoning):
-            continue
-
-        assistant_full_message += message_delta
-        response_data = {
-            "message_id": message_id,
-            "message_delta": message_delta,
-            "reasoning_delta": message_reasoning
-        }
-        yield json.dumps(response_data) + "\n"
-    current_conversation.append({
-        "role": "assistant",
-        "message": assistant_full_message,
-        "message_id": message_id
-    })
-    print(current_conversation)
+current_conversation = conversation_manager.Conversation()
 
 @app.route("/")
 def main():
@@ -121,17 +81,15 @@ def send_message():
     if not data or "prompt" not in data:
         return jsonify({"status": "error", "message": "No message received"}), 400
 
-    current_conversation.append({
-        "role": "user",
-        "message": data["prompt"],
-        "message_id": data["message_id"]
-    })
+    user_message = conversation_manager.Message(role="user", message_id=data["message_id"])
+    user_message.add_content("normal", data["prompt"])
+    current_conversation.add_message(user_message)
 
-    return Response(generate_reply_stream(data["prompt"], data["message_id"]), mimetype="application/x-ndjson")
+    return Response(stream_manager.generate_reply_stream(data["prompt"], current_conversation), mimetype="application/x-ndjson")
 
 @app.route("/backend-api/get-conversation")
 def get_conversation():
-    return jsonify(current_conversation)
+    return jsonify(current_conversation.to_dict())
 
 if __name__ == "__main__":
     initialize()

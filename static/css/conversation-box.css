@@ -82,6 +82,9 @@
 	background-color: hsl(0, 0%, 85%);
 	white-space: pre-wrap;
 	text-align: left !important;
+	gap: 0.5em;
+	display: flex;
+	flex-direction: column;
 }
 
 .message-content.message-user {
@@ -100,6 +103,12 @@
 .message-assistant {
 	text-align: left;
 	align-items: flex-start;
+}
+
+.container-reasoning {
+	background-color: hsla(0, 0%, 0%, 30%);
+	padding: 0.8em;
+	border-radius: 0.5em;
 }
 
 .icon-simplechat.role-icon {

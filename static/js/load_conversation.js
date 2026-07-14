@@ -2,6 +2,16 @@ const message_bubbles = await import(FLASK_STATIC_JS_URL + "message_bubbles.js")
 
 const conversation_container = document.querySelector(".conversation-content");
 
+function load_submessages(message_bubble, message) {
+    const submessages = message.content;
+
+    let text_container;
+    for (const submessage of submessages) {
+        text_container = message_bubbles.insert_message_container(submessage.type, message_bubble);
+        text_container.textContent = submessage.content;
+    }
+}
+
 export async function open_conversation(conversation_id="") {
     conversation_container.textContent = "";
 
@@ -13,14 +23,20 @@ export async function open_conversation(conversation_id="") {
         }
     })
 
-    if (!response.ok) console.error(response);
+    if (!response.ok) {
+        console.error(response);
+        return;
+    }
 
-    const messages = await response.json();
-    if (messages == "") return;
+    const conversation = await response.json();
 
-    for (const message of messages) {
+    if (!conversation || !conversation.messages) return;
+
+    let message_bubble;
+    for (const message of conversation.messages) {
         const message_template = message_bubbles.get_message_object(message.role);
-        message_bubbles.insert_message_bubble(message_template, message.message, message.message_id)
+        message_bubble = message_bubbles.insert_message_bubble(message_template, message.message_id);
+        load_submessages(message_bubble, message);
     }
 }
 
