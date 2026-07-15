@@ -4,7 +4,7 @@ const assistant_role = "<div class=\"message message-assistant\"><div class=\"me
 
 const user_role = "<div class=\"message message-user\"><div class=\"message-heading message-user\"><span class=\"role-heading\">User</span><div class=\"icon-simplechat user-icon role-icon\"></div></div><div class=\"message-content message-user\"></div></div>"
 
-const hide_reasoning_button = "<button class=\"hide-reasoning-button\"><div class=\"icon-simplechat chevron-down\"></div><div class=\"icon-simplechat chevron-up\"></div>Reasoning</button>"
+const hide_reasoning_button = "<button class=\"button hide-reasoning-button\">Reasoning<div class=\"icon-simplechat chevron-down\"></div><div class=\"icon-simplechat chevron-up\"></div></button>"
 
 const conversation_container = document.querySelector(".conversation-content");
 
@@ -41,6 +41,7 @@ export function insert_message_container(type, message_bubble) {
         const parser = new DOMParser();
         const hide_button_base = parser.parseFromString(hide_reasoning_button, 'text/html').querySelector(".hide-reasoning-button");
         hide_button = hide_button_base.cloneNode(true);
+        hide_button.setAttribute("onclick", 'toggle_cot_visibility()');
     }
 
     const final_type = message_types[type];
@@ -56,5 +57,6 @@ export function insert_message_container(type, message_bubble) {
 
     container.appendChild(text_container);
     message_bubble.querySelector(".message-content").appendChild(container);
+    icon_theme_switcher.initialize_icons(icon_theme);
     return text_container;
 }

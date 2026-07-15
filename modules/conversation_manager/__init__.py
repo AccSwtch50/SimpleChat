@@ -15,6 +15,7 @@ class Message:
         })
 
     def add_content(self, submessage_type, subcontent=""):
+        if subcontent is None: return
         if not self.content or self.content[-1]["type"] != submessage_type:
             self.__add_submessage(submessage_type, subcontent)
             return
@@ -119,21 +120,28 @@ class StreamManager:
 
 class SC_Chunk:
     def __init__(self, chunk):
-        delta = chunk.choices[0].delta
+        delta_type = "normal"
+        delta_content = ""
+
+        try:
+            delta = chunk.choices[0].delta
+        except:
+            self.chunk_type = delta_type
+            self.chunk_content = delta_content
+            return
 
         message_types = {
             "reasoning": "reasoning",
             "normal": "content"
         }
 
-        delta_type = "normal"
-        delta_content = ""
-
         for message_type in message_types.keys():
             delta_content = getattr(delta, message_types[message_type], None)
             if delta_content is None: continue
             delta_type = message_type
             break
+
+        if delta_content is None: delta_content = ""
 
         self.chunk_type = delta_type
         self.chunk_content = delta_content

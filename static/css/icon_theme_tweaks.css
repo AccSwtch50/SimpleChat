@@ -72,3 +72,24 @@
 	height: 1.5em;
 	width: unset;
 }
+
+.lucide.chevron-up, .lucide.chevron-down {
+	margin: 0 0 -0.2em 0.3em;
+}
+
+.breeze.chevron-up, .breeze.chevron-down {
+	font-size: 1.5em;
+	margin: 0.28em 0.3em 0.32em 0.3em;
+}
+
+.fontawesome.chevron-up, .fontawesome.chevron-down {
+	height: 1.2em;
+}
+
+.fontawesome.chevron-up {
+	margin: 0.4em 0.3em 0.2em 0.5em;
+}
+
+.fontawesome.chevron-down {
+	margin: 0.3em 0.3em 0.3em 0.5em;
+}

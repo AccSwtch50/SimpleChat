@@ -39,7 +39,8 @@ const lucide = {
 	new_chat_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-pen-icon lucide-square-pen"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"/></svg>',
 	conversation_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-icon lucide-message-square"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/></svg>',
 	model_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot-icon lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>',
-	dropdown_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>',
+	chevron_down_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>',
+	chevron_up_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>',
 	prompt_button_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>',
 	user_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>'
 }
@@ -51,7 +52,8 @@ const breeze = {
 	new_chat_string: '<i class="icon icon_list-add"></i>',
 	conversation_icon_string: '<i class="icon icon_dialog-messages"></i>',
 	model_icon_string: '<i class="icon icon_flower-shape"></i>',
-	dropdown_icon_string: '<i class="icon icon_go-down"></i>',
+	chevron_down_string: '<i class="icon icon_go-down"></i>',
+	chevron_up_string: '<i class="icon icon_go-up"></i>',
 	prompt_button_icon_string: '<i class="icon icon_document-send"></i>',
 	user_icon_string: '<i class="icon icon_im-user"></i>'
 }
@@ -63,7 +65,8 @@ const fontawesome = {
 	new_chat_string: '<i class="fa-solid fa-pen-to-square"></i>',
 	conversation_icon_string: '<i class="fa-regular fa-message"></i>',
 	model_icon_string: '<i class="fa-solid fa-robot"></i>',
-	dropdown_icon_string: '<i class="fa-solid fa-chevron-down"></i>',
+	chevron_down_string: '<i class="fa-solid fa-chevron-down"></i>',
+	chevron_up_string: '<i class="fa-solid fa-chevron-up"></i>',
 	prompt_button_icon_string: '<i class="fa-solid fa-paper-plane"></i>',
 	user_icon_string: '<i class="fa-regular fa-user"></i>'
 }
@@ -102,9 +105,11 @@ export function initialize_icons(icon_theme) {
 	fill_icon_placeholders(icon_theme.new_chat_string, icon_type, ".new-chat-icon",icon_theme.name);
 	fill_icon_placeholders(icon_theme.conversation_icon_string, icon_type, ".conversation-icon",icon_theme.name);
 	fill_icon_placeholders(icon_theme.model_icon_string, icon_type, ".model-icon",icon_theme.name);
-	fill_icon_placeholders(icon_theme.dropdown_icon_string, icon_type, ".dropdown-icon",icon_theme.name);
+	fill_icon_placeholders(icon_theme.chevron_down_string, icon_type, ".dropdown-icon",icon_theme.name);
 	fill_icon_placeholders(icon_theme.prompt_button_icon_string, icon_type, ".prompt-button-icon",icon_theme.name);
 	fill_icon_placeholders(icon_theme.user_icon_string, icon_type, ".user-icon",icon_theme.name);
+	fill_icon_placeholders(icon_theme.chevron_down_string, icon_type, ".chevron-down",icon_theme.name);
+	fill_icon_placeholders(icon_theme.chevron_up_string, icon_type, ".chevron-up",icon_theme.name);
 }
 
 export function setup_icons(icon_theme) {

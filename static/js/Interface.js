@@ -1,5 +1,5 @@
 const icon_theme_switcher = await import(FLASK_STATIC_JS_URL + "icon_theme_switcher.js");
-globalThis.icon_theme = icon_theme_switcher.get_theme_object("lucide");
+globalThis.icon_theme = icon_theme_switcher.get_theme_object("breeze");
 icon_theme_switcher.setup_icons(icon_theme);
 
 const load_conversations = await import(FLASK_STATIC_JS_URL + "load_conversations.js");
@@ -23,7 +23,8 @@ const script_template = document.createElement("script");
 script_template.type = "text/javascript";
 
 const external_scripts = [
-	"dropdown.js"
+	"dropdown.js",
+	"reasoning_visibility_toggle.js"
 ];
 
 external_scripts.forEach(script => {

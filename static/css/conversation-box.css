@@ -107,8 +107,52 @@
 
 .container-reasoning {
 	background-color: hsla(0, 0%, 0%, 30%);
-	padding: 0.8em;
+	padding: 0.5em;
 	border-radius: 0.5em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.3em;
+}
+
+.content-text {
+	padding: 0.5em;
+}
+
+.content-text.reasoning-hidden {
+	display: none;
+}
+
+.hide-reasoning-button {
+	display: flex;
+	align-items: flex-end;
+	padding: 0 0.6em 0 0.6em !important;
+	border-radius: 1em !important;
+	background-color: hsla(0, 0%, 100%, 0%) !important;
+	width: fit-content;
+}
+
+.hide-reasoning-button:hover {
+	background-color: hsla(0, 0%, 100%, 10%) !important;
+}
+
+.hide-reasoning-button:active {
+	background-color: hsla(0, 0%, 0%, 30%) !important;
+}
+
+.icon-simplechat.chevron-up {
+	display: unset;
+}
+
+.icon-simplechat.chevron-down {
+	display: none;
+}
+
+.icon-simplechat.chevron-up.reasoning-hidden {
+	display: none;
+}
+
+.icon-simplechat.chevron-down.reasoning-hidden {
+	display: unset;
 }
 
 .icon-simplechat.role-icon {
