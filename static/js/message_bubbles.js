@@ -32,7 +32,8 @@ export function insert_message_bubble(html_string, message_id="0") {
 export function insert_message_container(type, message_bubble) {
     const message_types = {
         normal: "container-message",
-        reasoning: "container-reasoning"
+        reasoning: "container-reasoning",
+        tool: "container-tool"
     }
 
     let hide_button = null;

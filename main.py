@@ -5,17 +5,31 @@ import os
 from flask import Flask, render_template, request, jsonify, Response
 from dotenv import load_dotenv
 from modules import conversation_manager
+from modules import mcp_manager
 
 stream_manager = None
+config = None
+
+def load_config():
+    if not os.path.exists("config.json"):
+        return
+    global config
+    with open("config.json", "r") as config_file:
+        config = json.load(config_file)
+
+
 
 def initialize():
     load_dotenv()
+    load_config()
     OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "sk-PlaceholderAPIKey")
     OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+    mcp_servers = mcp_manager.parse_config(config["mcp_servers"])
     global stream_manager
     stream_manager = conversation_manager.StreamManager(
         api_key=OPENAI_API_KEY,
-        base_url=OPENAI_BASE_URL
+        base_url=OPENAI_BASE_URL,
+        mcp_servers=mcp_servers
     )
 
 app = Flask(__name__)

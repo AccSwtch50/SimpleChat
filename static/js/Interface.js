@@ -1,5 +1,5 @@
 const icon_theme_switcher = await import(FLASK_STATIC_JS_URL + "icon_theme_switcher.js");
-globalThis.icon_theme = icon_theme_switcher.get_theme_object("breeze");
+globalThis.icon_theme = icon_theme_switcher.get_theme_object("lucide");
 icon_theme_switcher.setup_icons(icon_theme);
 
 const load_conversations = await import(FLASK_STATIC_JS_URL + "load_conversations.js");
