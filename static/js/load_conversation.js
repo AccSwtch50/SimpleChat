@@ -7,6 +7,8 @@ function load_submessages(message_bubble, message) {
 
     let text_container;
     for (const submessage of submessages) {
+        if (!submessage.content) continue;
+
         text_container = message_bubbles.insert_message_container(submessage.type, message_bubble);
         if (submessage.type === "tool") {
             handle_tool(text_container, submessage.content);
@@ -53,10 +55,17 @@ export async function open_conversation(conversation_id="") {
 
     if (!conversation || !conversation.messages) return;
 
+    let last_role = null;
+    let message_bubble;
+
     for (const message of conversation.messages) {
-        const message_template = message_bubbles.get_message_object(message.role);
-        const message_bubble = message_bubbles.insert_message_bubble(message_template, message.message_id);
+        message_bubble = conversation_container.lastElementChild;
+        if (message.role !== last_role) {
+            const message_template = message_bubbles.get_message_object(message.role);
+            message_bubble = message_bubbles.insert_message_bubble(message_template, message.message_id);
+        }
         load_submessages(message_bubble, message);
+        last_role = message.role;
     }
 }
 

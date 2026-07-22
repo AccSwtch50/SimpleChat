@@ -93,3 +93,8 @@
 .fontawesome.chevron-down {
 	margin: 0.3em 0.3em 0.3em 0.5em;
 }
+
+.lucide.tool-icon {
+	height: 1em;
+	width: unset;
+}

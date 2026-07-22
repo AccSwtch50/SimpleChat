@@ -24,7 +24,9 @@ script_template.type = "text/javascript";
 
 const external_scripts = [
 	"dropdown.js",
-	"reasoning_visibility_toggle.js"
+	"reasoning_visibility_toggle.js",
+	"tool_visibility_toggle.js",
+	"tools_visibility_toggle.js"
 ];
 
 external_scripts.forEach(script => {
