@@ -5,7 +5,6 @@ class Message:
         self.role = role
         self.content = MessageContent()
         self.message_id = message_id
-        self.tool_calls = tool_calls or []
 
         self._tool_asm = ToolCallAssembler()
 
@@ -14,7 +13,7 @@ class Message:
 
         if submessage_type == "tool":
             self._tool_asm.add_delta(subcontent)
-            self.tool_calls = self._tool_asm.to_list()
+            self.content.append("tool", self._tool_asm.to_list())
             return
 
         self.content.append(submessage_type, subcontent)
@@ -23,8 +22,7 @@ class Message:
         return {
             "role": self.role,
             "content": self.content.to_list(),
-            "message_id": self.message_id,
-            "tools_calls": [tool_call.to_dict() for tool_call in self.tool_calls]
+            "message_id": self.message_id
         }
 
     def to_openai(self):
@@ -44,13 +42,14 @@ class Message:
         if reasoning:
             openai_message["reasoning"] = reasoning
 
-        if not self.tool_calls:
+        tools = self.content.get_tools()
+        if not tools:
             messages.append(openai_message)
             return messages
 
         openai_message["tool_calls"] = []
         tool_role_messages = []
-        for tool_call in self.tool_calls:
+        for tool_call in tools:
             openai_message["tool_calls"].append(tool_call.to_openai())
             if tool_call.result_content is None:
                 continue
@@ -82,6 +81,7 @@ class SC_Chunk:
         for message_type in message_types.keys():
             delta_content = getattr(delta, message_types[message_type], None)
             if delta_content is None: continue
+            if isinstance(delta_content, list) and not delta_content: continue
             delta_type = message_type
             break
 

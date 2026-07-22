@@ -32,9 +32,19 @@ class MessageContent:
     def __init__(self):
         self._content = []
 
-    def append(self, submessage_type: str, content=""):
+    def append(self, submessage_type: str, content):
         if content is None:
             return
+
+        if submessage_type == "tool":
+            if self._content and self._content[-1]["type"] == "tool":
+                self._content[-1]["content"] = content
+            else:
+                self._content.append({"type": "tool", "content": content})
+            return
+
+        if not isinstance(content, str):
+            content = str(content)
 
         if not self._content or self._content[-1]["type"] != submessage_type:
             self._content.append({"type": submessage_type, "content": content})
@@ -44,8 +54,33 @@ class MessageContent:
     def get_text(self, message_type: str) -> str:
         return "".join(item["content"] for item in self._content if item["type"] == message_type)
 
+    def get_tools(self):
+        for segment in reversed(self._content):
+            if segment["type"] == "tool":
+                return segment["content"] if isinstance(segment["content"], list) else []
+        return []
+
     def to_list(self):
-        return list(self._content)
+        output = []
+        for segment in self._content:
+            entry = {"type": segment["type"]}
+            if segment["type"] != "tool":
+                entry["content"] = segment["content"]
+                output.append(entry)
+                continue
+            entry["content"] = []
+            entry["content"].extend(self._enumerate_tools_list(segment["content"]))
+            output.append(entry)
+        return output
+
+    def _enumerate_tools_list(self, tools):
+        tool_list = []
+        for tool in tools:
+            if not hasattr(tool, "to_dict"):
+                tool_list.append(tool)
+                continue
+            tool_list.append(tool.to_dict())
+        return tool_list
 
 class ToolCallAssembler:
     def __init__(self):

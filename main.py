@@ -8,7 +8,7 @@ from modules import conversation_manager
 from modules import mcp_manager
 
 stream_manager = None
-config = None
+config = {}
 
 def load_config():
     if not os.path.exists("config.json"):
@@ -24,7 +24,7 @@ def initialize():
     load_config()
     OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "sk-PlaceholderAPIKey")
     OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-    mcp_servers = mcp_manager.parse_config(config["mcp_servers"])
+    mcp_servers = mcp_manager.parse_config(config["mcp_servers"]) if config["mcp_servers"] else None
     global stream_manager
     stream_manager = conversation_manager.StreamManager(
         api_key=OPENAI_API_KEY,

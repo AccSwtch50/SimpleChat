@@ -9,7 +9,7 @@ class MCP_Tool:
     def __init__(self, name, mcp_server_name, parameters=None, description=None):
         self.name = name
         self.mcp_server_name = mcp_server_name
-        self.parameters = parameters or {"type": "object","properties": {},"additionalProperties": false}
+        self.parameters = parameters or {"type": "object","properties": {},"additionalProperties": "false"}
         self.description = description or ""
 
     def to_dict(self):

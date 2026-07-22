@@ -32,10 +32,11 @@ class StreamManager:
             if last_message.role != "assistant":
                 break
 
-            if not last_message.tool_calls:
+            current_tools = last_message.content.get_tools()
+            if not current_tools:
                 break
 
-            for tool_call in last_message.tool_calls:
+            for tool_call in current_tools:
                 if tool_call.result_content is not None:
                     continue
                 yield self._execute_tool(tool_call, last_message)
@@ -58,7 +59,7 @@ class StreamManager:
             "message_delta": result_text
         }
 
-        return response_data
+        return json.dumps(response_data) + "\n"
 
     def _run_mcp_tool(self, server, server_name, tool_name, arguments):
         if not server:

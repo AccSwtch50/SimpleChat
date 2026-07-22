@@ -61,3 +61,53 @@ export function insert_message_container(type, message_bubble) {
     icon_theme_switcher.initialize_icons(icon_theme);
     return text_container;
 }
+
+export function insert_tool(tool_container, tool_object) {
+    if (!tool_object || !tool_object.name) return;
+
+    const tool_element = document.createElement("div");
+    tool_element.classList.add("tool")
+    tool_element.setAttribute("tool-id", tool_object.id);
+
+    const full_name = tool_object.name.split("__");
+
+    const tool_label = document.createElement("span");
+    tool_label.classList.add("tool-server-name");
+    tool_label.textContent = full_name[0] || "";
+    tool_element.appendChild(tool_label);
+
+    const tool_content_element = document.createElement("div");
+    tool_content_element.classList.add("tool-content")
+
+    const tool_result = document.createElement("pre");
+    tool_result.classList.add("tool-result");
+    tool_element.appendChild(tool_result);
+
+    const tool_args_element = document.createElement("div");
+    tool_args_element.classList.add("tool-args");
+    const tool_arguments = JSON.parse(tool_object.arguments);
+    for (const[arg_name, arg_value] of Object.entries(tool_arguments)) {
+        insert_tool_argument(tool_args_element, arg_name, arg_value)
+    }
+    tool_element.appendChild(tool_args_element);
+
+    tool_container.appendChild(tool_element);
+    return tool_element;
+}
+
+function insert_tool_argument(tool_args_container, name, value) {
+    const tool_argument = document.createElement("div");
+    tool_argument.classList.add("tool-argument");
+
+    const name_label = document.createElement("span");
+    const value_label = document.createElement("span");
+    name_label.classList.add("tool-name_label");
+    name_label.textContent = name;
+    value_label.classList.add("tool-value-label");
+    value_label.textContent = value;
+
+    tool_argument.appendChild(name_label);
+    tool_argument.appendChild(value_label);
+
+    tool_args_container.appendChild(tool_argument);
+}
