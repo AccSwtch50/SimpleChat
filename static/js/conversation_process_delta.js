@@ -13,7 +13,7 @@ export function process_message_deltas(deltas, message_bubble, stream_state) {
         if (delta_type === "normal" && parsed_delta.message_delta === "") continue;
 
         if (delta_type === "tool_result") {
-            const tool_container = document.querySelector(`.tool[tool-id=${parsed_delta.tool_call_id}]`);
+            const tool_container = document.querySelector(`.tool[tool-id="${parsed_delta.tool_call_id}"]`);
             const tool_result_content = tool_container.querySelector(".tool-result");
             tool_result_content.textContent = parsed_delta.message_delta;
             stream_state.last_delta_type = delta_type;

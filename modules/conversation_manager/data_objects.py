@@ -73,18 +73,20 @@ class SC_Chunk:
             return
 
         message_types = {
-            "tool": "tool_calls",
-            "reasoning": "reasoning",
-            "reasoning": "reasoning_content",
-            "normal": "content"
+            "tool": ["tool_calls"],
+            "reasoning": ["reasoning", "reasoning_content"],
+            "normal": ["content"]
         }
 
         for message_type in message_types.keys():
-            delta_content = getattr(delta, message_types[message_type], None)
-            if delta_content is None: continue
-            if isinstance(delta_content, list) and not delta_content: continue
-            delta_type = message_type
-            break
+            for message_subtype in message_types[message_type]:
+                delta_content = getattr(delta, message_subtype, None)
+                if delta_content is None: continue
+                if isinstance(delta_content, list) and not delta_content: continue
+                delta_type = message_type
+                break
+            if delta_content:
+                break
 
         if delta_content is None: delta_content = ""
 

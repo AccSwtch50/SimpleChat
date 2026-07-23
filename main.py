@@ -9,6 +9,8 @@ from modules import mcp_manager
 
 stream_manager = None
 config = {}
+models = []
+mcp_servers_list = []
 
 def load_config():
     if not os.path.exists("config.json"):
@@ -16,8 +18,6 @@ def load_config():
     global config
     with open("config.json", "r") as config_file:
         config = json.load(config_file)
-
-
 
 def initialize():
     load_dotenv()
@@ -33,27 +33,30 @@ def initialize():
     )
     global models
     models = stream_manager.get_models()
+    global mcp_servers_list
+    if not mcp_servers: return
+    for mcp_server in mcp_servers.values():
+        mcp_servers_list.append(mcp_server.to_dict())
+        stream_manager.toggle_mcp_enablement(mcp_server.name)
+
+def get_list_with_range(input_list, input_range):
+    if (len(input_list) - 1) < input_range:
+        return input_list
+    return input_list[:input_range]
 
 app = Flask(__name__)
-
-models = []
 
 conversations = []
 
 for index in range(50):
     conversations.append({"id": str(uuid.uuid4()), "name": f"New Chat {index + 1}"})
 
-mcp_servers = []
-
-for index in range(50):
-    mcp_servers.append({"name": f"mcp_{index + 1}", "friendly_name": f"MCP {index + 1}"})
-
 current_conversation = conversation_manager.Conversation()
 
 @app.route("/")
 def main():
     print(models)
-    return render_template("Interface.html", conversations=conversations[:20], models=models[:20], mcp_servers=mcp_servers[:20], current_model=stream_manager.get_current_model())
+    return render_template("Interface.html", conversations=get_list_with_range(conversations, 20), models=get_list_with_range(models, 20), mcp_servers=get_list_with_range(mcp_servers_list, 20), current_model=stream_manager.get_current_model())
 
 @app.route("/backend-api/conversations")
 def get_conversations():
@@ -88,6 +91,8 @@ def set_model():
 
 @app.route("/backend-api/mcp-servers")
 def get_mcp_servers():
+    if len(mcp_servers_list) < 20:
+        return jsonify([])
     mcp_server_offset = 20
     mcp_server_fetched = 20
 
@@ -95,7 +100,17 @@ def get_mcp_servers():
     mcp_server_fetched = int(request.headers.get('Max-Item-Fetched'))
     mcp_server_endstop = min((mcp_server_offset + mcp_server_fetched), len(mcp_servers))
 
-    return jsonify(mcp_servers[(mcp_server_offset):mcp_server_endstop])
+    return jsonify(mcp_servers_list[(mcp_server_offset):mcp_server_endstop])
+
+@app.route("/backend-api/select-mcp", methods=["PUT"])
+def select_mcp():
+    selected_mcp = request.headers.get("MCP-Name")
+    stream_manager.toggle_mcp_enablement(selected_mcp)
+    return jsonify(selected_mcp)
+
+@app.route("/backend-api/list_selected_mcps")
+def list_selected_mcps():
+    return jsonify(stream_manager.enabled_mcps)
 
 @app.route("/backend-api/send_message", methods=["POST"])
 def send_message():

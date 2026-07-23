@@ -87,6 +87,20 @@ div.mcp-dropdown {
 	border-radius: 0.5em;
 }
 
+.mcp-checkbox {
+	--mcp-checkbox-size: 1.5em;
+	width: var(--mcp-checkbox-size);
+	height: var(--mcp-checkbox-size);
+	margin-right: 0.5em;
+}
+
+.mcp-checkbox > .checkbox-icon {
+	display: none;
+}
+
+.mcp-checkbox > .checkbox-icon.enabled {
+	display: unset;
+}
 .icon-simplechat.mcp-icon {
 	height: 1.2em;
 }

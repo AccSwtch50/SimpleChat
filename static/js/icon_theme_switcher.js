@@ -43,7 +43,8 @@ const lucide = {
 	chevron_up_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>',
 	prompt_button_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-icon lucide-send"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>',
 	user_icon_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>',
-	tool_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench-icon lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>'
+	tool_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench-icon lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>',
+	checkbox_string: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>'
 }
 
 const breeze = {
@@ -57,7 +58,8 @@ const breeze = {
 	chevron_up_string: '<i class="icon icon_go-up"></i>',
 	prompt_button_icon_string: '<i class="icon icon_document-send"></i>',
 	user_icon_string: '<i class="icon icon_im-user"></i>',
-	tool_string: '<i class="icon icon_plugins"></i>'
+	tool_string: '<i class="icon icon_plugins"></i>',
+	checkbox_string: `<i class="icon icon_checkbox"><object type="image/svg+xml" data="${FLASK_STATIC_URL}assets/breeze_checkbox.svg"></object></i>`
 }
 
 const fontawesome = {
@@ -71,7 +73,8 @@ const fontawesome = {
 	chevron_up_string: '<i class="fa-solid fa-chevron-up"></i>',
 	prompt_button_icon_string: '<i class="fa-solid fa-paper-plane"></i>',
 	user_icon_string: '<i class="fa-regular fa-user"></i>',
-	tool_string: '<i class="fa-solid fa-wrench"></i>'
+	tool_string: '<i class="fa-solid fa-wrench"></i>',
+	checkbox_string: '<i class="fa-solid fa-check"></i>'
 }
 
 export function get_theme_object(theme_name) {
@@ -114,6 +117,7 @@ export function initialize_icons(icon_theme) {
 	fill_icon_placeholders(icon_theme.chevron_down_string, icon_type, ".chevron-down",icon_theme.name);
 	fill_icon_placeholders(icon_theme.chevron_up_string, icon_type, ".chevron-up",icon_theme.name);
 	fill_icon_placeholders(icon_theme.tool_string, icon_type, ".tool-icon",icon_theme.name);
+	fill_icon_placeholders(icon_theme.checkbox_string, icon_type, ".checkbox-icon",icon_theme.name);
 }
 
 export function setup_icons(icon_theme) {

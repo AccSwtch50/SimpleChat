@@ -3,6 +3,7 @@
 <head>
 	<title>SimpleChat</title>
 	<script>const FLASK_STATIC_JS_URL = "{{ url_for('static', filename='js/') }}";</script>
+	<script>const FLASK_STATIC_URL = "{{ url_for('static', filename='') }}";</script>
 	<script type="module" src="{{ url_for('static', filename='js/Interface.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/Interface.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/icon_theme_tweaks.css') }}">
@@ -48,7 +49,7 @@
 					<div class="mcp-dropdown">
 						<div class="list dropdown-content mcp-list" id="mcp-list">
 							{% for mcp_server in mcp_servers %}
-							<button class="button transparent-button mcp-tool" onclick="select_mcp(&quot;{{ mcp_server.name }}&quot;)">{{ mcp_server.friendly_name }}</button>
+							<button class="button transparent-button mcp-tool" mcp_name="{{ mcp_server.name }}" onclick="select_mcp(&quot;{{ mcp_server.name }}&quot;)"><div class="checkbox mcp-checkbox"><div class="icon-simplechat checkbox-icon"></div></div>{{ mcp_server.friendly_name }}</button>
 							{% endfor %}
 							<button class="button transparent-button mcp-tool load-trigger auxilary" onclick="load_more_mcp_servers()">Load More</button>
 						</div>

@@ -142,6 +142,15 @@ class MCP_Server:
         self.loop.run_until_complete(self.exit_stack.aclose())
         self.session = None
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "friendly_name": self.friendly_name,
+            "command": self.command,
+            "args": self.args,
+            "env": self.env
+        }
+
 def parse_config(server_configs):
     mcp_servers = {}
     for name, config in server_configs.items():

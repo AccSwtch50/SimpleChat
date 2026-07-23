@@ -10,6 +10,7 @@ class StreamManager:
         self.base_url = base_url
         self.oai_client = None
         self.mcp_servers = mcp_servers or {}
+        self.enabled_mcps = []
         self.model = None
         self.additional_kwargs = additional_kwargs or {}
 
@@ -19,11 +20,21 @@ class StreamManager:
 
     def get_all_tools_openai(self):
         oai_tools = []
-        for server in self.mcp_servers.values():
+        for server_name, server in self.mcp_servers.items():
+            if server_name not in self.enabled_mcps:
+                continue
             server.connect_server()
             oai_tools.extend(server.get_tools_openai())
 
         return oai_tools if oai_tools else None
+
+    def toggle_mcp_enablement(self, mcp_server_name):
+        if mcp_server_name not in self.mcp_servers:
+            return
+        if mcp_server_name in self.enabled_mcps:
+            self.enabled_mcps.remove(mcp_server_name)
+            return
+        self.enabled_mcps.append(mcp_server_name)
 
     def get_models(self):
         models = []

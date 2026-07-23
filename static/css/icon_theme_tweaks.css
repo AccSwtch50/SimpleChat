@@ -98,3 +98,13 @@
 	height: 1em;
 	width: unset;
 }
+
+.mcp-checkbox > .icon-simplechat > .lucide.checkbox-icon {
+	height: 1.5em;
+	width: unset;
+	margin-bottom: -0.2em;
+}
+
+.mcp-checkbox > .icon-simplechat > .breeze.checkbox-icon > object {
+	height: 1.5em;
+}

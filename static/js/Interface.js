@@ -13,6 +13,11 @@ const conversation_js = await import(FLASK_STATIC_JS_URL + "conversation.js");
 const load_conversation = await import(FLASK_STATIC_JS_URL + "load_conversation.js");
 await load_conversation.open_conversation()
 
+const model_selection_js = await import(FLASK_STATIC_JS_URL + "model_selection.js");
+
+const mcp_selection_js = await import(FLASK_STATIC_JS_URL + "mcp_selection.js");
+mcp_selection_js.detect_enabled_mcps()
+
 /*const ai_role_string = message_bubbles.get_message_object("assistant_role");
 const human_role_string = message_bubbles.get_message_object("user_role");
 
@@ -33,43 +38,3 @@ external_scripts.forEach(script => {
 	script_template.src = FLASK_STATIC_JS_URL + script;
 	document.querySelector("head").append(script_template.cloneNode(true));
 });
-
-async function set_model_dropdown_label() {
-	const response = await fetch("/backend-api/get-model", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		}
-	});
-
-	if (!response.ok) throw new Error('Network response error');
-
-	const model_name = await response.json();
-
-	const model_dropdown = document.querySelector(".model-dropdown");
-	const model_label = model_dropdown.querySelector(".button-text");
-
-	model_label.textContent = model_name;
-}
-
-async function model_select(model) {
-	const response = await fetch("/backend-api/set-model", {
-		method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-			"Model": model
-		}
-	});
-
-	if (!response.ok) throw new Error('Network response error');
-
-	const parsed_response = await response.json();
-
-	if (parsed_response === "Model cannot be set") {
-		throw new Error('Model unable to be set');
-	}
-
-	await set_model_dropdown_label();
-}
-
-window.model_select = model_select
