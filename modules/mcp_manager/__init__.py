@@ -9,7 +9,7 @@ class MCP_Tool:
     def __init__(self, name, mcp_server_name, parameters=None, description=None):
         self.name = name
         self.mcp_server_name = mcp_server_name
-        self.parameters = parameters or {"type": "object","properties": {},"additionalProperties": "false"}
+        self.parameters = parameters or {"type": "object","properties": {},"additionalProperties": False}
         self.description = description or ""
 
     def to_dict(self):
@@ -37,7 +37,7 @@ class MCP_Server:
         self.name = name
         self.command = command
         self.args = args or []
-        self.env = env
+        self.env = self._fetch_env_vars(env)
         self.friendly_name = friendly_name or name
 
         self.exit_stack = AsyncExitStack()
@@ -54,7 +54,6 @@ class MCP_Server:
 
             if value.startswith("$"):
                 full_env[key] = os.environ.get(value[1:]) or ""
-
         return full_env
 
     async def _connect(self, server_params):

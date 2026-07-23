@@ -36,8 +36,8 @@ function process_models(element_objects, models) {
         const model = models[index];
 
         template_clone = template.cloneNode(true);
-        template_clone.setAttribute("onclick", `model_select("${model.name}")`);
-        template_clone.textContent = model.friendly_name;
+        template_clone.setAttribute("onclick", `model_select("${model}")`);
+        template_clone.textContent = model;
         element_objects.list_container.insertBefore(template_clone, element_objects.first_additional_button);
     }
 }

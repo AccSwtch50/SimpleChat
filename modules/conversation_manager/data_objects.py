@@ -75,6 +75,7 @@ class SC_Chunk:
         message_types = {
             "tool": "tool_calls",
             "reasoning": "reasoning",
+            "reasoning": "reasoning_content",
             "normal": "content"
         }
 

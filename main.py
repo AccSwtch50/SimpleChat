@@ -31,18 +31,17 @@ def initialize():
         base_url=OPENAI_BASE_URL,
         mcp_servers=mcp_servers
     )
+    global models
+    models = stream_manager.get_models()
 
 app = Flask(__name__)
+
+models = []
 
 conversations = []
 
 for index in range(50):
     conversations.append({"id": str(uuid.uuid4()), "name": f"New Chat {index + 1}"})
-
-models = []
-
-for index in range(50):
-    models.append({"name": f"model_{index + 1}", "friendly_name": f"Model {index + 1}"})
 
 mcp_servers = []
 
@@ -53,7 +52,8 @@ current_conversation = conversation_manager.Conversation()
 
 @app.route("/")
 def main():
-    return render_template("Interface.html", conversations=conversations[:20], models=models[:20], mcp_servers=mcp_servers[:20])
+    print(models)
+    return render_template("Interface.html", conversations=conversations[:20], models=models[:20], mcp_servers=mcp_servers[:20], current_model=stream_manager.get_current_model())
 
 @app.route("/backend-api/conversations")
 def get_conversations():
@@ -76,6 +76,15 @@ def get_models():
     model_endstop = min((model_offset + model_fetched), len(models))
 
     return jsonify(models[(model_offset):model_endstop])
+
+@app.route("/backend-api/get-model")
+def get_current_model():
+    return jsonify(stream_manager.get_current_model())
+
+@app.route("/backend-api/set-model", methods=["PUT"])
+def set_model():
+    requested_model = request.headers.get("Model")
+    return jsonify(stream_manager.set_model(requested_model))
 
 @app.route("/backend-api/mcp-servers")
 def get_mcp_servers():

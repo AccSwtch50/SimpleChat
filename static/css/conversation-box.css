@@ -3,6 +3,7 @@
 
 .conversation-options {
 	flex-shrink: 0;
+	padding: 0.5em 0.5em 0 0.5em;
 }
 
 .conversation-content {
@@ -22,6 +23,7 @@
 
 .conversation-interact {
 	flex-shrink: 0;
+	padding: 0 0.5em 0.5em 0.5em;
 }
 
 .model-dropdown {
@@ -61,4 +63,10 @@
 
 .model-load-trigger {
 	text-align: center !important;
+}
+
+@media screen and (max-width: 1000px) {
+	.conversation-content {
+		--usable-width: 100%;
+	}
 }

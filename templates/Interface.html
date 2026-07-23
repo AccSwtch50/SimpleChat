@@ -25,12 +25,12 @@
 			<div class="model-dropdown">
 				<button onclick="model_dropdown_clicked()" class="button dropdown-button model-dropdown">
 					<div class="icon-simplechat model-icon"></div>
-					<span class="button-text">Model Name</span>
+					<span class="button-text">{{ current_model }}</span>
 					<div class="icon-simplechat dropdown-icon"></div>
 				</button>
 				<div class="list dropdown-content model-list" id="model-dropdown-list">
 					{% for model in models%}
-					<button class="button transparent-button model" onclick="model_select(&quot;{{ model.name }}&quot;)">{{ model.friendly_name }}</button>
+					<button class="button transparent-button model" onclick="model_select(&quot;{{ model }}&quot;)">{{ model }}</button>
 					{% endfor %}
 					<button onclick="load_more_models()" class="button transparent-button model model-load-trigger auxilary">Load More</button>
 				</div>

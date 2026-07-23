@@ -5,14 +5,17 @@ from .data_objects import ToolCall, Message, SC_Chunk
 from .conversation_manager import Conversation
 
 class StreamManager:
-    def __init__(self, api_key, base_url, mcp_servers=None):
+    def __init__(self, api_key, base_url, mcp_servers=None, additional_kwargs=None):
         self.api_key = api_key
         self.base_url = base_url
         self.oai_client = None
         self.mcp_servers = mcp_servers or {}
+        self.model = None
+        self.additional_kwargs = additional_kwargs or {}
 
         if self.api_key:
             self.oai_client = OpenAI(api_key=api_key, base_url=base_url)
+            self.model = self.get_models()[0]
 
     def get_all_tools_openai(self):
         oai_tools = []
@@ -21,6 +24,22 @@ class StreamManager:
             oai_tools.extend(server.get_tools_openai())
 
         return oai_tools if oai_tools else None
+
+    def get_models(self):
+        models = []
+        for model in self.oai_client.models.list():
+            models.append(model.id)
+        return models
+
+    def get_current_model(self):
+        return self.model
+
+    def set_model(self, model):
+        available_models = self.get_models()
+        if model not in available_models:
+            return "Model cannot be set"
+        self.model = model
+        return model
 
     def generate_reply_stream(self, prompt, conversation):
         tools = self.get_all_tools_openai()
@@ -79,11 +98,13 @@ class StreamManager:
 
     def _generate_reply_stream_once(self, prompt, conversation, tools):
         kwargs = {
-            "model": "gemma4:31b-cloud",
-            "reasoning_effort": "medium",
+            "model": self.model,
             "messages": conversation.to_openai(),
             "stream": True
         }
+
+        kwargs = kwargs | self.additional_kwargs
+
         if tools:
             kwargs["tools"] = tools
 
