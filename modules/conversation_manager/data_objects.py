@@ -25,6 +25,15 @@ class Message:
             "message_id": self.message_id
         }
 
+    @classmethod
+    def from_dict(cls, data):
+        message = cls(
+            role=data["role"],
+            message_id=data["message_id"]
+        )
+        message.content.load_from_list(data.get("content", []))
+        return message
+
     def to_openai(self):
         messages = []
 

@@ -26,18 +26,22 @@ export function load_more_conversations() {
 }
 
 function process_conversations(element_objects, conversations) {
-    const parser = new DOMParser();
-    const template_string = "<button class=\"button sidebar-button conversation\"><div class=\"icon-simplechat conversation-icon\"></div><span class=\"button-text\"></span></button>";
-    const template = parser.parseFromString(template_string, 'text/html').querySelector("button");
-
     let template_clone;
     let index;
     for (index = 0; index < conversations.length; index++) {
         const conversation = conversations[index];
-
-        template_clone = template.cloneNode(true);
-        template_clone.setAttribute("onclick", `open_conversation("${conversation.id}")`);
-        template_clone.querySelector(".button-text").textContent = conversation.name;
+        template_clone = construct_conversation_element(conversation);
         element_objects.list_container.insertBefore(template_clone, element_objects.first_additional_button);
     }
+}
+
+export function construct_conversation_element(conversation) {
+    const parser = new DOMParser();
+    const template_string = "<button class=\"button sidebar-button conversation\"><div class=\"icon-simplechat conversation-icon\"></div><span class=\"button-text\"></span></button>";
+    const template = parser.parseFromString(template_string, 'text/html').querySelector("button");
+
+    const template_clone = template.cloneNode(true);
+    template_clone.setAttribute("onclick", `open_conversation("${conversation.id}")`);
+    template_clone.querySelector(".button-text").textContent = conversation.name;
+    return template_clone;
 }

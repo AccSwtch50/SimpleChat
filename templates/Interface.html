@@ -12,7 +12,7 @@
 <body>
 <div class="main">
 	<div class="sidebar">
-		<button class="button sidebar-button new-chat"><div class="icon-simplechat new-chat-icon"></div><span class="button-text">New Chat</span></button>
+		<button onclick="new_chat()" class="button sidebar-button new-chat"><div class="icon-simplechat new-chat-icon"></div><span class="button-text">New Chat</span></button>
 		<p class="conv-list-title">Conversations:</p>
 		<div class="list conversation-list">
 			{% for conversation in conversations%}

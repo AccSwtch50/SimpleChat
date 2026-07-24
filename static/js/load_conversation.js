@@ -35,14 +35,21 @@ function handle_tool(tools_container, tools) {
     }
 }
 
-export async function open_conversation(conversation_id="") {
+export async function open_conversation(conversation_id="", clear_conversation=false) {
     conversation_container.textContent = "";
 
-    const response = await fetch("/backend-api/get-conversation", {
+    if (conversation_id) {
+        history.pushState({conv_id: conversation_id}, "", `/c/${conversation_id}`);
+    } else {
+        history.replaceState({}, "", "/");
+    }
+
+    const response = await fetch("/backend-api/open-conversation", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            "Conversation-Id": conversation_id
+            "Conversation-Id": conversation_id,
+            "Clear-Conv": clear_conversation
         }
     })
 
@@ -70,3 +77,12 @@ export async function open_conversation(conversation_id="") {
 }
 
 window.open_conversation = open_conversation;
+
+window.new_chat = function() {
+    open_conversation("", true);
+}
+
+window.addEventListener("popstate", () => {
+    const match = window.location.pathname.match(/^\/c\/(.+)$/);
+    open_conversation(match ? match[1] : "");
+});

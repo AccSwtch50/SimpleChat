@@ -1,5 +1,7 @@
 const message_bubbles = await import(FLASK_STATIC_JS_URL + "message_bubbles.js");
 const process_deltas = await import(FLASK_STATIC_JS_URL + "conversation_process_delta.js");
+const load_conversations_js = await import(FLASK_STATIC_JS_URL + "load_conversations.js");
+const icon_theme_switcher = await import(FLASK_STATIC_JS_URL + "icon_theme_switcher.js");
 
 if (document.readyState == "loading") {
     document.addEventListener('DOMContentLoaded', observe_keyboard);
@@ -92,4 +94,42 @@ function handle_stream_failure(assistant_message_bubble) {
     throw new Error("Streaming error");
 }
 
+async function create_conversation_if_nonexistent() {
+    let response = await fetch("/backend-api/get-conversation", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Conversation-Id": conversation_id
+        }
+    })
 
+    if (!response.ok) {
+        console.error(response);
+        return;
+    }
+
+    let conversation = await response.json();
+
+    if (conversation) return;
+
+    response = await fetch("/backend-api/new-conversation", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if (!response.ok) {
+        console.error(response);
+        return;
+    }
+
+    conversation = await response.json();
+
+    history.pushState({conv_id: conversation.id}, "", `/c/${conversation.id}`);
+    conversation_element = load_conversations_js.construct_conversation_element(conversation);
+    conversation_list_element = document.querySelector(".conversation-list")
+    conversation_list_element.prepend(conversation_element);
+    icon_theme_switcher.initialize_icons(icon_theme);
+    return conversation;
+}

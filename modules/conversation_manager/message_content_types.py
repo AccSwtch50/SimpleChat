@@ -8,6 +8,17 @@ class ToolCall:
     def set_result(self, content: str):
         self.result_content = content
 
+    @classmethod
+    def from_dict(cls, data):
+        tool_call = cls(
+            name=data.get("name"),
+            arguments=data.get("arguments"),
+            call_id=data.get("call_id")
+        )
+        if "result" in data and data["result"] is not None:
+            tool_call.set_result(data["result"])
+        return tool_call
+
     def to_dict(self):
         return {
             "call_id": self.call_id,
@@ -72,6 +83,27 @@ class MessageContent:
             entry["content"].extend(self._enumerate_tools_list(segment["content"]))
             output.append(entry)
         return output
+
+    def load_from_list(self, content_list):
+        self._content = []
+        for submessage_dict in content_list:
+            self._content.append(self._handle_submessage_dict(submessage_dict))
+
+    def _handle_submessage_dict(self, submessage_dict):
+        if submessage_dict["type"] == "tool":
+            submessage_content = self._load_tools_list(submessage_dict.get("content", []))
+        else:
+            submessage_content = submessage_dict.get("content", "")
+        return {
+            "type": submessage_dict["type"],
+            "content": submessage_content
+        }
+
+    def _load_tools_list(self, tools_list):
+        tools = []
+        for tool_dict in tools_list:
+            tools.append(ToolCall.from_dict(tool_dict))
+        return tools
 
     def _enumerate_tools_list(self, tools):
         tool_list = []
